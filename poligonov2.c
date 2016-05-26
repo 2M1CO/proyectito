@@ -12,7 +12,7 @@ void func_itoa(int x,int y);
 void muestra_puntos(int num);
 
 void main (void){
-	char r;
+	char r,counter[10];
 	int adapter=DETECT,modo,t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,mayo=-99999,meno=99999,l=0;
 	initgraph (&adapter,&modo,"C:\\tc20\\bin");
 	setbkcolor(BLACK);
@@ -28,7 +28,7 @@ void main (void){
 		func_itoa(c,e);
 
 			if(mclick()==1&&n!=1){
-
+			delay(100);
 			if(t==0){
 
 				x[t]=mxpos(1);
@@ -38,7 +38,8 @@ void main (void){
 				mver();
 				c1=h=x[t];
 				e1=k=y[t];
-
+				itoa(t,counter,10);
+				outtextxy(0,0,counter);
 				n=1;
 				t++;
 			}
@@ -50,6 +51,11 @@ void main (void){
 
 				h=x[t];
 				k=y[t];
+				itoa(t,counter,10);
+				setfillstyle(1,BLACK);
+				bar(0,0,20,20);
+				outtextxy(0,0,counter);
+
 				t++;
 
 				n=1;
@@ -62,13 +68,22 @@ void main (void){
 			mver();
 			h=mxpos(1);
 			k=mypos(1);
+				itoa(t,counter,10);
+				setfillstyle(1,BLACK);
+				bar(0,0,20,20);
+				outtextxy(0,0,counter);
+
 			t++;
 			n=1;
 			}
-	    } else if(mclick()==2){
+		} else if(mclick()==2){
 			line(h,k,c1,e1);
 
 			muestra_puntos(t);
+
+			itoa(t+1,counter,10);
+			outtextxy(600,100,"n§ puntos");
+			outtextxy(600,130,counter);
 			n=1;
 		}
 	}
