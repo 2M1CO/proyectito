@@ -27,7 +27,7 @@ void main (void){
 
 		func_itoa(c,e);
 
-			if(mclick()==1&&!n==1){
+			if(mclick()==1&&n!=1){
 
 			if(t==0){
 
