@@ -9,6 +9,7 @@
 #include<math.h>
 int x[100],y[100];
 void func_itoa(int x,int y);
+void logo();
 void muestra_puntos(int num);
 void diagonales(int p);
 void main (void){
@@ -16,7 +17,7 @@ void main (void){
 	int adapter=DETECT,modo,t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,mayo=-99999,meno=99999,l=0;
 	initgraph (&adapter,&modo,"C:\\tc20\\bin");
 	setbkcolor(BLACK);
-
+	logo();
 	mver();
 	msituar(1,320,240);
 
@@ -107,8 +108,8 @@ void main (void){
 
 		}
 	}
-	setcolor(RED);
-	line(x[h],y[h],x[k],y[k]);}
+
+	}
 
 	}while(r!=27);
 	getch();
@@ -134,15 +135,21 @@ void muestra_puntos(int num){
 int ini,g=50,oc=0;
 char equis[10],ye[10],oie[100];
 setfillstyle(1,BLUE);
-bar(460,0,640,480);
+bar(460,0,640,440);
+outtextxy(490,50,"x");
+outtextxy(530,50,"y");
+
 for(ini=0;ini<num;ini++){
 	setcolor(YELLOW);
 	itoa(x[ini],equis,10);
 	itoa(y[ini],ye,10);
+
 	outtextxy(490,g=g+15,equis);
 	outtextxy(530,g,ye);
+
 	setcolor(RED);
 	itoa(oc,oie,10);
+	outtextxy(470,g,oie);
 	outtextxy(x[ini]-15,y[ini],oie);
 	oc++;
 }
@@ -154,7 +161,11 @@ char m[10],h[10];
 setcolor(RED);
 	for(n=0;n<=p-1;n++){
 		for(l=0;l<=p-1;l++){
-		if(n!=l&&(n-l)<=1){
+		if((n-l)==1){
+		setcolor(BLUE);
+		line(x[n],y[n],x[l],y[l]);
+		}else if((n-l)<=0){
+		setcolor(RED);
 		line(x[n],y[n],x[l],y[l]);
 
 		itoa(n,m,10);
@@ -164,7 +175,17 @@ setcolor(RED);
 		outtextxy(0,0,m);
 		outtextxy(0,10,h);
 		delay(1000);
+		}else if((n-l)==(p-1)){
+			delay(1000);
+			setcolor(BLUE);
+			line(x[n],y[n],x[l],y[l]);
 		}
 		}
 	}
+}
+void logo(){
+	setfillstyle(1,GREEN);
+	bar(0,440,640,480);
+	setfillstyle(1,BLUE);
+	bar(460,0,640,440);
 }
