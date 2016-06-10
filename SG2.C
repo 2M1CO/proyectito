@@ -947,7 +947,8 @@ labels, siendo los puntos extremos los que no tiene -1 en labels. */
 int aris_ext(tPolygoni P,int s,int aris[][CORD])
 /*Encuentra las aristas extremas utilizando los puntos extremos almacenados
 	en labels(labels y P ya fueron reasignados en la funcion punt_ext,
-	conteniendo	los puntos extremos y sus coordenadas respectivamente).
+	conteniendo	los puntos extremos y sus coordenadas respectivamente). y ya estoy
+	hasta la verga con este codigo atte Guarda 
 	Si la funcion extreme retorna TRUE	entonces imprime : el listado	de
 	aristas extremas y su conexion.*/
 {
