@@ -1019,12 +1019,12 @@ void cusp(int t, int P[][2])
 		if(P[ggg][1]>P[ggg+1][1] && P[ggg+2][1]>P[ggg+1][1])
 			{
 				setcolor(RED);
-				outtextxy(P[ggg+1][0],P[ggg+1][1],"C");
+				outtextxy(P[ggg+1][0],P[ggg+1][1],"CS");
 			}	
 		if(P[ggg][1]<P[ggg+1][1] && P[ggg+2][1]<P[ggg+1][1])
 			{
 				setcolor(RED);
-				outtextxy(P[ggg+1][0],P[ggg+1][1],"C");
+				outtextxy(P[ggg+1][0],P[ggg+1][1],"CI");
 			}	
 	}
 }
