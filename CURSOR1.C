@@ -49,7 +49,7 @@ void linea_mon(int t, int P[][2], int x1, int y1, int x2, int y2);
 
 int BANDERA=0,BANDA=0, xc[100],yc[100];
 char r,counter[10];
-int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2],x1,y1,x2,y2;
+int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2],x1,y1,x2,y2,x=0,y=0;
 
 
 void func_itoa(int x,int y);
@@ -60,6 +60,7 @@ void Archivo(void);
 void Archivot(void);
 void Menu1(void);
 void Edit(void);
+void Editt(void);
 void capun (void);
 void Cerrar_Etiq(void);
 void Triang_P(void);
@@ -70,7 +71,7 @@ void Teclado(void);
 void dib_cursor(int x , int y);
 void xor_pixel(int x, int y);
 
-int x = 0, y = 0, click = 0, inf = 0;
+int click = 0, inf = 0;
 void *ImageA, *ImageL, *Help;
 
 void main(void){
@@ -336,8 +337,15 @@ void Edit(void){
 							linea_mon(t,P,x1,y1,x2,y2);
 						}
 						if(CX>=400 && CX<=620 && CY>=166 && CY<=196){
-							/*break;*/
+							mocultar();
+							putimage(395,126,ImageL,COPY_PUT);
+							free(ImageL);
+							putimage(210,51,ImageA,COPY_PUT);
+							free(ImageA);
+							mver();
+							mlimit(1,0,0,640,480);
 							cusp(t,P);
+							break;
 						}
 						if(CX>=400 && CX<=620 && CY>=201 && CY<=231){
 							break;
@@ -497,21 +505,17 @@ void Teclado(void){
 				break;
 			case 13:
 	
-			if(x>=20 && x<=210 && y>=20 && y<=50)
-			{
-				Archivot();
-				delay(100);
-			}
+				if(x>=20 && x<=210 && y>=20 && y<=50)
+				{
+					Archivot();
+					delay(100);
+				}
+				if(x>=210 && x<=505 && y>=20 && y<=50)
+				{
+					Editt();
+					delay(100);
+				}
 		}
-		/*if(r==13)
-		{
-	
-			if(x>=20 && x<=210 && y>=20 && y<=50)
-			{
-				Archivo();
-				delay(100);
-			}
-		}*/
 		if(r==27)
 			exit(0);
 	}while(r!=27);
@@ -530,7 +534,16 @@ void dib_cursor(int x, int y){
 }
 
 void xor_pixel(int x, int y){
-	putpixel(x,y,COLCURS^getpixel(x,y));
+/*
+	putpixel(x,y,COLCURS^getpixel(x,y));*/
+	if(x==y)
+		{
+		putpixel(x,y,COLCURS^getpixel(x,y));
+		}
+		else
+		{
+		putpixel(x,y,COLCURS-2^getpixel(x,y));
+		}
 }
 
 
@@ -1141,6 +1154,10 @@ void Archivot(void)
 				{
 					break;
 				}
+				if(	x>=25 && x<=205 && y>=161 && y<=191)
+				{
+						exit(0);
+				}
 				if( x>=25 && x<=205 && y>=126 && y<=156 )
 				{
 					img= imagesize(210,126,320,236);
@@ -1171,21 +1188,18 @@ void Archivot(void)
 							break;
 						}
 						
-						if(r==97)
-						{
-							putimage(210,126,ImageL,COPY_PUT);
-							free(ImageL);
-							putimage(20,51,ImageA,COPY_PUT);
-							free(ImageA);
-							break;
-						}
 					}
-				if(x>=25 && x<=205 && y>=161 && y<=191)
-						{
-							exit(0);
-						}
+				
 				
 				}
+		}
+		if(r==97)
+		{
+			putimage(210,126,ImageL,COPY_PUT);
+			free(ImageL);
+			putimage(20,51,ImageA,COPY_PUT);
+			free(ImageA);
+			break;
 		}
 	
 		if(L==1)
@@ -1194,6 +1208,139 @@ void Archivot(void)
 			L=0;
 			Teclado();
 		}
+		if(r==27)
+		{
+			exit(0);
+		}
+	}while(r!=27);
+	getch();
+}
+void Editt(void){
+	char r;
+	int img;
+	img= imagesize(210,51,505,196);
+	ImageA=malloc(img);
+	mocultar();
+	getimage(210,51,505,196,ImageA);
+	setcolor(BLACK);
+	settextstyle(1,0,1);
+	setfillstyle(1,GREEN);
+	bar(210,51,505,196);
+	setfillstyle(1,BLUE);
+	bar(216,57,499,85);
+	rectangle(215,56,500,86); outtextxy(225,59,"CAPTURAR PUNTOS");
+	bar(216,92,499,120);
+	rectangle(215,91,500,121); outtextxy(225,95,"CERRAR POLIGONO/ETIQUETAR");
+	bar(216,127,499,155);
+	rectangle(215,126,500,156); outtextxy(225,129,"METODOS");
+	bar(216,162,499,190);
+	rectangle(215,161,500,191); outtextxy(225,165,"TRIANGULAR");
+	do	
+	{
+	
+		func_itoa(x, y);
+		r=getch();
+		switch(r)
+		{
+			case ARRIBA:
+				/*dib_cursor(x, y);  */
+				dib_cursor(x, y);
+				y=y-5;
+				dib_cursor(x,y);
+				break;
+			case ABAJO:
+				/*dib_cursor(x, y);*/
+				dib_cursor(x, y);
+				y=y+5;
+				dib_cursor(x, y);
+				break;
+			case DERECHA:
+				/* dib_cursor(x, y);  */
+				dib_cursor(x, y);
+				x=x+5;
+				dib_cursor(x, y);
+				break;
+			case IZQUIERDA:
+				/* dib_cursor(x, y);   */
+				dib_cursor(x, y);
+				x=x-5;
+				dib_cursor(x, y);
+				break;
+			case 13:
+	
+				if(x>=215 && x<= 500 && y>=56 && y<=86)
+				{
+					BANDERA=1;
+					break;					
+				}
+				if(x>=215 && x<= 500 && y>=91 && y<=121)
+				{
+					BANDERA=2;	
+					break;					
+				}
+				if(	x>=25 && x<=205 && y>=161 && y<=191)
+				{
+						exit(0);
+				}
+				if( x>=215 && x<=500 && y>=126 && y<=156 )
+				{
+					img= imagesize(395,126,625,236);
+					ImageL= malloc(img);
+					mocultar();
+					getimage(395,126,625,236,ImageL);
+					/*********************SUB MENU 2.1****************************/
+					setfillstyle(1,RED);
+					bar(395,126,625,236);
+					setfillstyle(1,BLUE);
+					bar(401,132,619,160);
+					rectangle(400,131,620,161); outtextxy(405,135,"1. EJE DE MONOTOMIA");
+					bar(401,167,619,195);
+					rectangle(400,166,620,196); outtextxy(405,170,"2. CUSPIDE");
+					bar(401,202,619,230);
+					rectangle(400,201,620,231); outtextxy(405,205,"3. TRAPEZOIDALIZACION");
+					mver();
+					mlimit(1,395,126,625,236);
+					if(r==13)
+					{
+						if(x>=400 && x<=620 && y>=131 && y<=161)
+						{
+							/*break;*/
+							linea_mon(t,P,x1,y1,x2,y2);
+						}
+						if(x>=400 && x<=620 && y>=166 && y<=196)
+						{
+							/*break;*/
+							cusp(t,P);
+						}
+						if(x>=400 && x<=620 && y>=201 && y<=231)
+						{
+							break;
+						}
+					}
+				}
+		}
+	
+		if(r==97)
+		{
+				putimage(395,126,ImageL,COPY_PUT);
+				free(ImageL);
+				putimage(210,51,ImageA,COPY_PUT);
+				free(ImageA);
+				break;
+		}
+		if(BANDERA==1)
+		{
+			capun();
+		}
+		if(BANDERA==2)
+		{
+			Cerrar_Etiq();
+		}
+		if(BANDERA==4)
+		{
+			Triang_P();
+		}
+		BANDERA=0;
 		if(r==27)
 		{
 			exit(0);
