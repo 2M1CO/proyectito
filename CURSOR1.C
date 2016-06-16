@@ -45,10 +45,11 @@ void PointAssign(tPointi a,tPointi b);
 void ClipEar1(int i,int n,tPolygoni P,int labels[]);
 void Triangulate1(int n, tPolygoni P,int vertex[][TRI]);
 void cusp(int t, int P[][2]);
+void linea_mon(int t, int P[][2], int x1, int y1, int x2, int y2);
 
-int BANDERA=0, xc[100],yc[100];
+int BANDERA=0,BANDA=0, xc[100],yc[100];
 char r,counter[10];
-int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2];
+int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2],x1,y1,x2,y2;
 
 
 void func_itoa(int x,int y);
@@ -56,6 +57,7 @@ void LimpiarPuntos(void);
 void muestra_puntos(int num,int [][2]);
 void Interfaz(void);
 void Archivo(void);
+void Archivot(void);
 void Menu1(void);
 void Edit(void);
 void capun (void);
@@ -87,6 +89,7 @@ void main(void){
 		}
 	}
 	if(opc==2){
+		BANDA=1000;
 		mocultar();
 		setfillstyle(1,LIGHTMAGENTA);
 		settextstyle(1,0,1);
@@ -329,7 +332,8 @@ void Edit(void){
 				while(inf==0){
 					if(mclick()==1){
 						if(CX>=400 && CX<=620 && CY>=131 && CY<=161){
-							break;
+							/*break;*/
+							linea_mon(t,P,x1,y1,x2,y2);
 						}
 						if(CX>=400 && CX<=620 && CY>=166 && CY<=196){
 							/*break;*/
@@ -465,32 +469,49 @@ void Teclado(void){
 	do{
 		func_itoa(x, y);
 		r=getch();
-		switch(r){
+		switch(r)
+		{
 			case ARRIBA:
 				/*dib_cursor(x, y);  */
 				dib_cursor(x, y);
-				y=y-1;
+				y=y-5;
 				dib_cursor(x,y);
 				break;
 			case ABAJO:
 				/*dib_cursor(x, y);*/
 				dib_cursor(x, y);
-				y=y+1;
+				y=y+5;
 				dib_cursor(x, y);
 				break;
 			case DERECHA:
 				/* dib_cursor(x, y);  */
 				dib_cursor(x, y);
-				x=x+1;
+				x=x+5;
 				dib_cursor(x, y);
 				break;
 			case IZQUIERDA:
 				/* dib_cursor(x, y);   */
 				dib_cursor(x, y);
-				x=x-1;
+				x=x-5;
 				dib_cursor(x, y);
 				break;
+			case 13:
+	
+			if(x>=20 && x<=210 && y>=20 && y<=50)
+			{
+				Archivot();
+				delay(100);
+			}
 		}
+		/*if(r==13)
+		{
+	
+			if(x>=20 && x<=210 && y>=20 && y<=50)
+			{
+				Archivo();
+				delay(100);
+			}
+		}*/
 		if(r==27)
 			exit(0);
 	}while(r!=27);
@@ -1027,5 +1048,152 @@ void cusp(int t, int P[][2])
 				outtextxy(P[ggg+1][0],P[ggg+1][1],"CI");
 			}	
 	}
+}
+void linea_mon(int t, int P[][2], int x1, int y1, int x2, int y2)
+{
+	int i,j;
+	for (i=0;i<t;i++) 
+	{ 
+		for (j=0;j<t-1;j++) 
+		{ 
+			if (P[j][1]>=P[j+1][1]) 
+			{ 
+				x1=P[j][0];
+				y1=P[j][1];
+				x2=P[j][0];
+				y2=P[j][1];
+				/*aux=P[j][1]; 
+				P[j][1]=A[j+1][1]; 
+				P[j+1][1]=aux;*/ 
+			} 
+
+		} 
+
+	} 
+	for(i=0;i<t;i++)
+	{
+			while((y2-y1)/(x2-x1)*(P[i+1][1]-P[i][1])/(P[i+1][0]-P[i][0]) !=-1)
+			{
+				/*if(i==t)
+				{
+					line(x1,y1,x2,P[i][1]);
+				}
+				else
+				{
+					line(x1,y1,x2,y2);
+				}*/
+				line(x1,y1,x2,y2);
+			}
+		y2++;
+	}
+}
+void Archivot(void)
+{
+	char r;
+	int img;
+	int L=0;
+	img= imagesize(20,51,210,196);
+	ImageA=malloc(img);
+	mocultar();
+	getimage(20,51,210,196,ImageA);
+	Menu1();
+	do	
+	{
+		func_itoa(x, y);
+		r=getch();
+		switch(r)
+		{
+			case ARRIBA:
+				/*dib_cursor(x, y);  */
+				dib_cursor(x, y);
+				y=y-5;
+				dib_cursor(x,y);
+				break;
+			case ABAJO:
+				/*dib_cursor(x, y);*/
+				dib_cursor(x, y);
+				y=y+5;
+				dib_cursor(x, y);
+				break;
+			case DERECHA:
+				/* dib_cursor(x, y);  */
+				dib_cursor(x, y);
+				x=x+5;
+				dib_cursor(x, y);
+				break;
+			case IZQUIERDA:
+				/* dib_cursor(x, y);   */
+				dib_cursor(x, y);
+				x=x-5;
+				dib_cursor(x, y);
+				break;
+			case 13:
+	
+				if( x>=25 && x<=205 && y>=56 && y<=86 )
+				{
+					L=1;
+					break;
+				}
+				if( x>=25 && x<=205 && y>=91 && y<=121 )
+				{
+					break;
+				}
+				if( x>=25 && x<=205 && y>=126 && y<=156 )
+				{
+					img= imagesize(210,126,320,236);
+					ImageL= malloc(img);
+					getimage(210,126,320,236,ImageL);
+					/*********************SUB MENU 1.1****************************/
+					setfillstyle(1,RED);
+					bar(210,126,320,236);
+					setfillstyle(1,BLUE);
+					bar(216,132,314,160);
+					rectangle(215,131,315,161); outtextxy(220,135,"ARCHIVO 1");
+					bar(216,167,314,195);
+					rectangle(215,166,315,196); outtextxy(220,170,"ARCHIVO 2");
+					bar(216,202,314,230);
+					rectangle(215,201,315,231); outtextxy(220,205,"ARCHIVO 3");
+					if(r==13)
+					{
+						if(x>=215 && x<=315 && y>=131 && y<=161)
+						{
+							break;
+						}
+						if(x>=215 && x<=315 && y>=166 && y<=196)
+						{
+							break;
+						}
+						if(x>=215 && x<=315 && y>=201 && y<=231)
+						{
+							break;
+						}
+						
+						if(r==97)
+						{
+							putimage(210,126,ImageL,COPY_PUT);
+							free(ImageL);
+							putimage(20,51,ImageA,COPY_PUT);
+							free(ImageA);
+							break;
+						}
+					}
+				if(x>=25 && x<=205 && y>=161 && y<=191)
+						{
+							exit(0);
+						}
+				
+				}
+		}
+	
+		if(L==1)
+		{
+			LimpiarPuntos();
+		}
+		if(r==27)
+		{
+			exit(0);
+		}
+	}while(r!=27);
+	getch();
 }
 
