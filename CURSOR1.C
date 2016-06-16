@@ -664,6 +664,8 @@ void LimpiarPuntos(){
 	}
 	n=0;
 	t=0;
+	x=0;
+	y=0;
 	men=0;
 }
 /****************************************************************************/
@@ -1099,6 +1101,7 @@ void Archivot(void)
 	Menu1();
 	do	
 	{
+	
 		func_itoa(x, y);
 		r=getch();
 		switch(r)
@@ -1188,6 +1191,8 @@ void Archivot(void)
 		if(L==1)
 		{
 			LimpiarPuntos();
+			L=0;
+			Teclado();
 		}
 		if(r==27)
 		{
