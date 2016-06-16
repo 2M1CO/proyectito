@@ -49,7 +49,7 @@ void linea_mon(int t, int P[][2], int x1, int y1, int x2, int y2);
 
 int BANDERA=0,BANDA=0, xc[100],yc[100];
 char r,counter[10];
-int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2],x1,y1,x2,y2,x=0,y=0;
+int t=0,c=320,e=240,men=0,n=0,h,k,c1,e1,P[100][2],x1,y1,x2,y2,a=0,b=0,w=0,z=0;
 
 
 void func_itoa(int x,int y);
@@ -475,42 +475,42 @@ void Mouse(void){
 void Teclado(void){
 	char r;
 	do{
-		func_itoa(x, y);
+		func_itoa(a, b);
 		r=getch();
 		switch(r)
 		{
 			case ARRIBA:
 				/*dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				y=y-5;
-				dib_cursor(x,y);
+				dib_cursor(a, b);
+				b=b-5;
+				dib_cursor(a,b);
 				break;
 			case ABAJO:
 				/*dib_cursor(x, y);*/
-				dib_cursor(x, y);
-				y=y+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				b=b+5;
+				dib_cursor(a, b);
 				break;
 			case DERECHA:
 				/* dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				x=x+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a+5;
+				dib_cursor(a, b);
 				break;
 			case IZQUIERDA:
 				/* dib_cursor(x, y);   */
-				dib_cursor(x, y);
-				x=x-5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a-5;
+				dib_cursor(a, b);
 				break;
 			case 13:
 	
-				if(x>=20 && x<=210 && y>=20 && y<=50)
+				if(a>=20 && a<=210 && b>=20 && b<=50)
 				{
 					Archivot();
 					delay(100);
 				}
-				if(x>=210 && x<=505 && y>=20 && y<=50)
+				if(a>=210 && a<=505 && b>=20 && b<=50)
 				{
 					Editt();
 					delay(100);
@@ -536,9 +536,9 @@ void dib_cursor(int x, int y){
 void xor_pixel(int x, int y){
 /*
 	putpixel(x,y,COLCURS^getpixel(x,y));*/
-	if(x==y)
+	if(a==b)
 		{
-		putpixel(x,y,COLCURS^getpixel(x,y));
+		putpixel(a,b,COLCURS^getpixel(a,b));
 		}
 		else
 		{
@@ -677,8 +677,8 @@ void LimpiarPuntos(){
 	}
 	n=0;
 	t=0;
-	x=0;
-	y=0;
+	a=0;
+	b=0;
 	men=0;
 }
 /****************************************************************************/
@@ -1109,60 +1109,78 @@ void Archivot(void)
 	int L=0;
 	img= imagesize(20,51,210,196);
 	ImageA=malloc(img);
-	mocultar();
+	w=a;
+	z=b;
+	a=0;
+	b=0;
+	dib_cursor(a,b);
 	getimage(20,51,210,196,ImageA);
+	a=w;
+	b=z;
+	w=0;
+	z=0;
 	Menu1();
 	do	
 	{
 	
-		func_itoa(x, y);
+		func_itoa(a,b);
 		r=getch();
 		switch(r)
 		{
 			case ARRIBA:
 				/*dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				y=y-5;
-				dib_cursor(x,y);
+				dib_cursor(a, b);
+				b=b-5;
+				dib_cursor(a,b);
 				break;
 			case ABAJO:
 				/*dib_cursor(x, y);*/
-				dib_cursor(x, y);
-				y=y+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				b=b+5;
+				dib_cursor(a, b);
 				break;
 			case DERECHA:
 				/* dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				x=x+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a+5;
+				dib_cursor(a, b);
 				break;
 			case IZQUIERDA:
 				/* dib_cursor(x, y);   */
-				dib_cursor(x, y);
-				x=x-5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a-5;
+				dib_cursor(a, b);
 				break;
 			case 13:
 	
-				if( x>=25 && x<=205 && y>=56 && y<=86 )
+				if( a>=25 && a<=205 && b>=56 && b<=86 )
 				{
 					L=1;
 					break;
 				}
-				if( x>=25 && x<=205 && y>=91 && y<=121 )
+				if( a>=25 && a<=205 && b>=91 && b<=121 )
 				{
 					break;
 				}
-				if(	x>=25 && x<=205 && y>=161 && y<=191)
+				if(	a>=25 && a<=205 && b>=161 && b<=191)
 				{
 						exit(0);
 				}
-				if( x>=25 && x<=205 && y>=126 && y<=156 )
+				if( a>=25 && a<=205 && b>=126 && b<=156 )
 				{
 					img= imagesize(210,126,320,236);
 					ImageL= malloc(img);
+					w=a;
+					z=b;
+					a=0;
+					b=0;
+					dib_cursor(a,b);
 					getimage(210,126,320,236,ImageL);
+					a=w;
+					b=z;
+					w=0;
+					z=0;
+					dib_cursor(a,b);
 					/*********************SUB MENU 1.1****************************/
 					setfillstyle(1,RED);
 					bar(210,126,320,236);
@@ -1175,15 +1193,15 @@ void Archivot(void)
 					rectangle(215,201,315,231); outtextxy(220,205,"ARCHIVO 3");
 					if(r==13)
 					{
-						if(x>=215 && x<=315 && y>=131 && y<=161)
+						if(a>=215 && a<=315 && b>=131 && b<=161)
 						{
 							break;
 						}
-						if(x>=215 && x<=315 && y>=166 && y<=196)
+						if(a>=215 && a<=315 && b>=166 && b<=196)
 						{
 							break;
 						}
-						if(x>=215 && x<=315 && y>=201 && y<=231)
+						if(a>=215 && a<=315 && b>=201 && b<=231)
 						{
 							break;
 						}
@@ -1195,10 +1213,20 @@ void Archivot(void)
 		}
 		if(r==97)
 		{
+			w=a;
+			z=b;
+			a=0;
+			b=0;
+			dib_cursor(a,b);
 			putimage(210,126,ImageL,COPY_PUT);
 			free(ImageL);
 			putimage(20,51,ImageA,COPY_PUT);
 			free(ImageA);
+			a=w;
+			b=z;
+			w=0;
+			z=0;
+			dib_cursor(a,b);
 			break;
 		}
 	
@@ -1220,8 +1248,16 @@ void Editt(void){
 	int img;
 	img= imagesize(210,51,505,196);
 	ImageA=malloc(img);
-	mocultar();
+	w=a;
+	z=b;
+	a=0;
+	b=0;
+	dib_cursor(a,b);
 	getimage(210,51,505,196,ImageA);
+	a=w;
+	b=z;
+	w=0;
+	z=0;
 	setcolor(BLACK);
 	settextstyle(1,0,1);
 	setfillstyle(1,GREEN);
@@ -1237,57 +1273,65 @@ void Editt(void){
 	rectangle(215,161,500,191); outtextxy(225,165,"TRIANGULAR");
 	do	
 	{
-	
-		func_itoa(x, y);
+		func_itoa(a, b);
 		r=getch();
 		switch(r)
 		{
 			case ARRIBA:
 				/*dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				y=y-5;
-				dib_cursor(x,y);
+				dib_cursor(a, b);
+				b=b-5;
+				dib_cursor(a,b);
 				break;
 			case ABAJO:
 				/*dib_cursor(x, y);*/
-				dib_cursor(x, y);
-				y=y+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				b=b+5;
+				dib_cursor(a, b);
 				break;
 			case DERECHA:
 				/* dib_cursor(x, y);  */
-				dib_cursor(x, y);
-				x=x+5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a+5;
+				dib_cursor(a, b);
 				break;
 			case IZQUIERDA:
 				/* dib_cursor(x, y);   */
-				dib_cursor(x, y);
-				x=x-5;
-				dib_cursor(x, y);
+				dib_cursor(a, b);
+				a=a-5;
+				dib_cursor(a, b);
 				break;
 			case 13:
 	
-				if(x>=215 && x<= 500 && y>=56 && y<=86)
+				if(a>=215 && a<= 500 && b>=56 && b<=86)
 				{
 					BANDERA=1;
 					break;					
 				}
-				if(x>=215 && x<= 500 && y>=91 && y<=121)
+				if(a>=215 && a<= 500 && b>=91 && b<=121)
 				{
 					BANDERA=2;	
 					break;					
 				}
-				if(	x>=25 && x<=205 && y>=161 && y<=191)
+				if(	a>=25 && a<=205 && b>=161 && b<=191)
 				{
 						exit(0);
 				}
-				if( x>=215 && x<=500 && y>=126 && y<=156 )
+				if( a>=215 && a<=500 && b>=126 && b<=156 )
 				{
 					img= imagesize(395,126,625,236);
 					ImageL= malloc(img);
-					mocultar();
+					w=a;
+					z=b;
+					a=0;
+					b=0;
+					dib_cursor(a,b);
 					getimage(395,126,625,236,ImageL);
+					a=w;
+					b=z;
+					w=0;
+					z=0;
+					dib_cursor(a,b);
 					/*********************SUB MENU 2.1****************************/
 					setfillstyle(1,RED);
 					bar(395,126,625,236);
@@ -1298,21 +1342,20 @@ void Editt(void){
 					rectangle(400,166,620,196); outtextxy(405,170,"2. CUSPIDE");
 					bar(401,202,619,230);
 					rectangle(400,201,620,231); outtextxy(405,205,"3. TRAPEZOIDALIZACION");
-					mver();
 					mlimit(1,395,126,625,236);
 					if(r==13)
 					{
-						if(x>=400 && x<=620 && y>=131 && y<=161)
+						if(a>=400 && a<=620 && b>=131 && b<=161)
 						{
 							/*break;*/
 							linea_mon(t,P,x1,y1,x2,y2);
 						}
-						if(x>=400 && x<=620 && y>=166 && y<=196)
+						if(a>=400 && a<=620 && b>=166 && b<=196)
 						{
 							/*break;*/
 							cusp(t,P);
 						}
-						if(x>=400 && x<=620 && y>=201 && y<=231)
+						if(a>=400 && a<=620 && b>=201 && b<=231)
 						{
 							break;
 						}
@@ -1322,10 +1365,20 @@ void Editt(void){
 	
 		if(r==97)
 		{
+				w=a;
+				z=b;
+				a=0;
+				b=0;
+				dib_cursor(a,b);
 				putimage(395,126,ImageL,COPY_PUT);
 				free(ImageL);
 				putimage(210,51,ImageA,COPY_PUT);
 				free(ImageA);
+				a=w;
+				b=z;
+				w=0;
+				z=0;
+				dib_cursor(a,b);
 				break;
 		}
 		if(BANDERA==1)
